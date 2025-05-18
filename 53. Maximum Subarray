@@ -1,0 +1,20 @@
+53. Maximum Subarray
+
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n=nums.size();
+        int a[n];
+        int ans=nums[0];
+        a[0]=nums[0];
+        for(int i=1;i<n;i++){
+            if(a[i-1]+nums[i]>=nums[i])
+            a[i]=a[i-1]+nums[i];
+            else
+            a[i]=nums[i];
+            ans=max(ans,a[i]);
+        }
+        return ans;
+    }
+};
