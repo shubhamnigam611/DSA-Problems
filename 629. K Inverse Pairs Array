@@ -1,0 +1,57 @@
+//Leetcode 629. K Inverse Pairs Array
+
+
+// recursive
+// class Solution {
+// public:
+//     int kInversePairs(int n, int k) {
+//         if(n==0)return 0;
+//         if(k==0)return 1;
+//         int a=0;
+//         for(int i=0;i<=min(k,n-1);i++)
+//         {
+//             a=a+kInversePairs(n-1,k-i);
+//         }
+//         return a;
+//     }
+// };
+
+
+//dp-Memoization
+// class Solution {
+// public:
+// int dp[1001][1001];
+
+//     int kInversePairs(int n, int k) {
+//         memset(dp,-1,sizeof(dp));
+//         if(n==0)return 0;
+//         if(k==0)return 1;
+//         if(dp[n][k]!=-1)return dp[n][k];
+//         int a=0;
+//         for(int i=0;i<=min(k,n-1);i++)
+//         {
+//             a=a+kInversePairs(n-1,k-i);
+//         }
+//         dp[n][k]=a;
+//         return a;
+//     }
+// };
+
+//dp-Tabulation
+class Solution {
+public:
+int dp[1001][1001];
+
+    int kInversePairs(int n, int k) {
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<=k;j++){
+                if(j==0)dp[i][j]=1;
+                else{
+                    for(int x=0;x<=min(j,i-1);x++)
+                    dp[i][j]=(dp[i][j]+dp[i-1][j-x])%1000000007;
+                }
+            }
+        }
+        return dp[n][k];
+    }
+};
