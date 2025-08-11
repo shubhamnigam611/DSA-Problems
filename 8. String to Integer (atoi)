@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int sign=1,start=1,i=0,signstart=1,max=0,numstart=1;
+        long ans=0;
+        string str="";
+        while(i<s.size()){
+            if(start&&s[i]==' '){
+                i++;
+            }
+            else if(signstart&&(s[i]=='+'||s[i]=='-')){
+                start=0;
+                signstart=0;
+                if(s[i]=='-')sign=-1;
+                else if(s[i]=='+')sign=1;
+                i++;
+            }
+            else if(numstart&&s[i]=='0'){i++;signstart=0;start=0;}
+            else{
+                numstart=0;
+                signstart=0;
+                start=0;
+                if(int(s[i])>=48&&int(s[i])<=57){
+                    str+=s[i];
+                    i++;
+                }
+                else
+                break;
+                }
+        }
+        i=0;
+        while(i<str.size()){
+            if(str.size()-1>9){ans=INT_MAX;max=1;break;}
+            ans+=(int(str[i])-48)*pow(10,(str.size()-i-1));
+            if(ans>INT_MAX){ans=INT_MAX;max=1;break;}
+            i++;
+        }
+        ans*=sign;
+        if(max&&sign==-1)return ans-1;
+        return ans;
+    }
+};
