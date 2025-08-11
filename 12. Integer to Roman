@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        string ans="";
+        map<int,string>mp={{4,"IV"},{9,"IX"},{40,"XL"},{90,"XC"},{400,"CD"},{900,"CM"}};
+        int a[7]={1,5,10,50,100,500,1000};
+        map<int,string>m={{1,"I"},{5,"V"},{10,"X"},{50,"L"},{100,"C"},{500,"D"},{1000,"M"}};
+        string s=to_string(num);
+        for(int j=0;j<s.length();j++){
+            int cnum=(s[j]-'0')*pow(10,(s.length()-j-1));
+            cout<<cnum<<"--";
+            if(mp.find(cnum)!=mp.end()){
+                ans+=mp[cnum];
+            }
+            else{
+                for(int i=6;i>=0;i--){
+                    int n=cnum/a[i];
+                    if(n){
+                        if(m.find(a[i])!=m.end()){
+                            while(n--)ans+=m[a[i]];
+                            cnum%=a[i];
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+};
