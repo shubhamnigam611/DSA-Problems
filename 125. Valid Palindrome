@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        string rs;
+        int i;
+        for(i=0;i<s.size();i++){
+            if(int(s[i])>=65&&int(s[i])<=90)rs.push_back(tolower(s[i]));
+            else if(int(s[i])>=97&&int(s[i])<=122)rs.push_back(s[i]);
+            else if(int(s[i])>=48&&int(s[i])<=57)rs.push_back(s[i]);
+        }
+        i=0;
+        while(i<rs.size()/2){
+            if(rs[i]!=rs[rs.size()-1-i])return false;
+            i++;
+        }
+        return true;
+    }
+};
