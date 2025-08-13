@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int i=0,ans=1,len=0;
+        char prev=s[0];
+        int a[200];
+        memset(a,-1,sizeof(a));
+        if(s.size()==0)return 0;
+        while(i<s.size()){
+            if(a[s[i]-0]!=-1){
+                for(int j=0;j<200;j++){
+                    if(a[j]!=-1&&a[j]<a[s[i]-0]){
+                        a[j]=-1;
+                        if(char(j)!=s[i])
+                        len--;
+                    }
+                }
+                a[s[i]-0]=i;
+            }
+            else{
+                a[s[i]-0]=i;
+                len++;
+                ans=max(ans,len);
+            }
+            i++;
+        }
+        return ans;
+    }
+};
